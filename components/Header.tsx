@@ -3,15 +3,16 @@
 import { useSupabaseClient } from "@supabase/auth-helpers-react";
 import { useRouter } from "next/navigation";
 import { ReactNode } from "react";
+import { toast } from "react-hot-toast";
 import { BiSearch } from "react-icons/bi";
+import { FaUserAlt } from "react-icons/fa";
 import { HiHome } from "react-icons/hi";
 import { RxCaretLeft, RxCaretRight } from "react-icons/rx";
 import { twMerge } from "tailwind-merge";
-import { FaUserAlt } from "react-icons/fa";
 
 import useAuthModal from "@/hooks/useAuthModal";
-import Button from "./Button";
 import { useUser } from "@/hooks/useUser";
+import Button from "./Button";
 
 interface IHeader {
   children: ReactNode;
@@ -32,7 +33,9 @@ const Header = ({ children, className }: IHeader) => {
     router.refresh();
 
     if (error) {
-      console.log(error);
+      toast.error(error.message);
+    } else {
+      toast.success("Logged out!");
     }
   };
 
