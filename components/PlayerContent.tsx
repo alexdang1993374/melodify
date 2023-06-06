@@ -1,12 +1,14 @@
 "use client";
 
-import { BsPauseFill, BsPlayFill } from "react-icons/bs";
+import { useState } from "react";
 import { AiFillStepBackward, AiFillStepForward } from "react-icons/ai";
+import { BsPauseFill, BsPlayFill } from "react-icons/bs";
 import { HiSpeakerWave, HiSpeakerXMark } from "react-icons/hi2";
 
+import usePlayer from "@/hooks/usePlayer";
 import { ISong } from "@/types";
-import MediaItem from "./MediaItem";
 import LikeButton from "./LikeButton";
+import MediaItem from "./MediaItem";
 import Slider from "./Slider";
 
 interface IPlayerContent {
@@ -15,6 +17,9 @@ interface IPlayerContent {
 }
 
 const PlayerContent = ({ song, songUrl }: IPlayerContent) => {
+  const player = usePlayer();
+  const [volume, setVolume] = useState(1);
+
   const Icon = true ? BsPauseFill : BsPlayFill;
   const VolumeIcon = true ? HiSpeakerXMark : HiSpeakerWave;
 
