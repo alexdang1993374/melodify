@@ -9,6 +9,8 @@ import { ISong } from "@/types";
 import Box from "./Box";
 import Library from "./Library";
 import SidebarItem from "./SidebarItem";
+import usePlayer from "@/hooks/usePlayer";
+import { twMerge } from "tailwind-merge";
 
 interface ISidebar {
   songs: ISong[];
@@ -17,6 +19,7 @@ interface ISidebar {
 
 const Sidebar = ({ songs, children }: ISidebar) => {
   const pathname = usePathname();
+  const player = usePlayer();
 
   const routes = useMemo(
     () => [
@@ -37,7 +40,15 @@ const Sidebar = ({ songs, children }: ISidebar) => {
   );
 
   return (
-    <div className="flex h-full">
+    <div
+      className={twMerge(
+        `
+    flex
+    h-full
+    `,
+        player.activeId && "h-[calc(100%-80px)]"
+      )}
+    >
       <div className="hidden md:flex flex-col gap-y-2 bg-black h-full w-[300px] p-2">
         <Box>
           <div className="flex flex-col gap-y-4 px-5 py-4">
